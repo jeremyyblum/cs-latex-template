@@ -3,7 +3,7 @@
 % Packages for language, character set and layout
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[german]{babel}
+\usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{setspace}
@@ -21,6 +21,18 @@
 \usepackage{etoolbox}
 \usepackage{silence}
 \usepackage{xparse}
+\usepackage{csquotes}
+\usepackage[
+    backend=biber,
+    style=authoryear-ibid,
+    citestyle=authoryear-ibid,
+    autocite=footnote,
+    language=english,
+    ibidtracker=false
+]{biblatex}
+
+\addbibresource{bib/references.bib}
+
 \WarningsOff[fancyhdr]
 
 % Document margins
@@ -98,8 +110,6 @@
 \newpage
 
 \pagenumbering{roman}
-\input{chapters/predefined/nda.tex}
-\newpage
 
 \input{chapters/predefined/toc.tex}
 \newpage
