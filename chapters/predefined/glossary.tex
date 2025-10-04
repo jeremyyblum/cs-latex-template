@@ -1,16 +1,5 @@
+% Automatisiertes Glossar mit glossaries Paket
+\glsaddall % Zeigt alle definierten Begriffe an, auch wenn sie nicht im Text verwendet werden
 \phantomsection
-\addcontentsline{toc}{section}{Glossary (alphabetically sorted)}
-\section*{Glossary (alphabetically sorted)}
-\markright{Glossary (alphabetically sorted)}
-\begin{tabular}{|p{0.3\textwidth}|p{0.7\textwidth}|}
-    \hline
-    \rowcolor{gray!30}
-    Term & Definition / Explanation \\
-    \hline
-    ABC & XYZ \\
-    \hline
-    123 & 456 \\
-    \hline
-    Test & Hello \\
-    \hline
-\end{tabular}
+\addcontentsline{toc}{section}{Glossary}
+\printglossary[title={Glossary}, style=long]

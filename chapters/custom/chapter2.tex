@@ -1,4 +1,84 @@
 \begin{section}{State of Research}
-In this chapter, intensive work is done with the literature. Accordingly, many citations will appear here. I will incorporate the source references immediately so I don't forget them.
-In doing so, I observe the requirements of the Provadis School of International Management and Technology, which are described in the ``Requirements for Scientific Papers''\footnote{``Formal Requirements for WAB/Short Reports, Bachelor Theses and Master Theses'', as of 12.07.2023, downloaded from Provadis Coach from the directory ``Cross-year Information from the Department of Computer Science and Business Informatics''}.
+\begin{subsection}{Supervised Learning and Binary Classification}
+    Machine learning can be broadly defined as `\enquote{the automated detection of meaningful patterns in data}  \footcite[p. vii]{shalev2014}.
+    One of the most common paradigms is \textbf{supervised learning}, in which the algorithm learns from example inputs \textbf{and} their
+    known outputs (lables) in order to predict the labels of new, unseen inputs. In a classic definition, \enquote{supervised machine learning is the search
+    for algorithms that reason from externally supplied instances to produce general hypotheses, which then make predictions about future
+    instances} \footcite[p. 249]{kotsiantis2007}. The goal is thus to induce a model (the \textit{hypothesis}) that maps input features to an output (target)
+    based on labeled training examples, and to use this model for predicting the labels of test instances where the true labels are unknown \footcite[Cf.][p. 249]{kotsiantis2007}.
+    Supervised learning encompasses both regression (predicting contiuous quantities) and \textbf{classification} (predicting discrete class labels). In particular, classification
+    deals with cases where the output variable assumes a finite set of values \footcite[Cf.][pp. 249--250]{kotsiantis2007}.
+    Often the classes are unordered categories such as "spam" vs. "not spam" in an email filter, or a user being "churn" vs "not churn" in a marketing context.
+    When there are exactly two possible classes, we talk about \textbf{binary classification}. Commonly, one class is 
+    designated as the "positive" class (e.g. "spam", "churn") and the other as "negative", and the classifier's task is to
+    assign each example to one of these two labels. Binary classification is widely used and is one of \enquote{the tasks most frequently carried
+    out by the intelligent systems} \footcite[p. 128]{osisanwo2017}. Examples include medical diagnoses (disease vs. no disease), fraud detection (fraudulent vs. legitimate transaction),
+    and many others.
+    Successful binary classifiers can be built using a variety of algorithms like decision trees, support vector machines and neural networks, as 
+    long as they can learn to differentiate between the two classes based on input features. The focus in supervised learning is on \textbf{generalization}: the 
+    learned model should not merely memorize the training data, but caputre the underlying patterns so that it predicts correctly on \textbf{new} data.
+
+    In evaluating supervised classifiers, we care both about their \textbf{predictive accuracy} (how well they correctly classify new instances)
+    and other factores like complexity or runtime. The performance of a learning algorithm involves multiple considerations, including the \textbf{accuracy} it 
+    achieves and the \textbf{time} or computational cost required to train and use the model.
+    In practice there can be trade-offs: a more complex model might achieve higher accuracy but at the expense of longer training time
+    or greater resource usage. Therefore, comparative evaluations of classifiers often consider not only accuracy but also \textbf{efficiency} aspects like 
+    training speed, memory consumption and model simplicity.
+\end{subsection}
+\begin{subsection}{Boosting and Gradient Boosting Machines}
+    Ensemble methods are techniques that combine multiple learning models to improve predictive performance.
+    \enquote{\textbf{Boosting} is an algorithmic paradigm that grew out of a theoretical question and became a very practical machine learning tool.}\footcite[p.130]{shalev2014}.
+    The fundamental idea of boosting is to \textbf{sequentially} add and integrate many weak models (weak learners) to 
+    create a single strong predictive model. Each weak learner may only be slightly better than random guessing, but by amplifying the accuracy of weak learners through iterative combination, 
+    boosting can achieve high overall accuracy \footcite[Cf.][p. 130]{shalev2014}. Boosting algorithms start by training an initial
+    model, then at each subsequent round they focus on the training examples that previous models 
+    mispredicted, training the next model to correct those errors. In this way, boosting concentrates on the "hard" cases and progressively improves performance.
+    In contrast to bagging methods like random forests (which train many models independently and average them), boosting is a \textbf{constructive,
+    sequential process}. For example, the popular AdaBoost algorithm assigns higher weights to misclassified instances, so that the next weak learner focuses 
+    more on those difficult cases. A boosting algorithm can in theory combine enough of the weak learners too achieve very high accuracy\footcite[Cf.][p. 130]{osisanwo2017}.
+    
+    To place boosting on a theoretical footin, researchers recast it as an optimization problem. This gave rise to \textbf{gradient boosting}, 
+    which views boosting as a gradient descent procedure in function space. In \textbf{gradient boosting machines (GBMs)}, \enquote{the principle idea behind
+    this algorithm is to construct the new base-learners to be maximally correlated with the negative gradient of the loss function, associated with the whole ensemble.} \footcite[p. 1]{natekin2013}.
+    in simpler terms, at each iteration the algorithm looks at where the current model is erring (according to the gardient of the loss) and trains a weak learner to address
+    those errors. This framework is ver flexible, allowing the use of different loss functions like \textit{squarred error} for regression, \textit{logistic loss} for classification, etc.
+    And boosting will adapt to minimize that loss \footcite[Cf.][p. 1]{natekin2013}. The approach also provides some theoretical justification
+    for why boosting often doesn't overfit easily: each new learner is reducing a well-defined objective, and regularization techniques can be applied
+    to that objective (e.g., limiting tree depth, shrinkage of step size, etc.). Overall, boosting methods have proven to be powerful achieving resulsts in many tasks,
+    due to its ability to \textit{sequentially correct errors} and \textit{refine} an ensemble model.
+\end{subsection}
+\begin{subsection}{XGBoost}
+    \textbf{XGBoost} (eXtreme Gradient Boosting) is a popular library for gradient boosting, particularly 
+    optimized for efficiency and model performance. It was introduced by Chen and Guesting in 2016 and quickly became popular 
+    in the machine learning community due to its winning performance in many data science competitions and practical applications.
+    In grdient boosting, XGBoost uses decision trees as the base learners (hence it is a gradient \textit{tree} boosting system). What
+    sets XGBoost apart are the various innovations and engineering optimizations that make it exceptionally fast and scalable \footcite[Cf.][p. 785]{chen2016}.
+    XGBoost was a dominant tool in many Kaggle competitions, from 29 winning solutions, 17 used XGBoost as the primary model \footcite[Cf.][p. 785]{chen2016}.  
+
+    \textbf{Scalability and speed}: XGBoost is designed for speed. It \enquote{runs more than ten times faster than existing popular solutions
+    on a single machine and scales to billions of examples} \footcite[p. 785]{chen2016}. The algorithm achieves this through a combination
+    of innovations. It exploits hardware capabilities, such as cache optimization and data compression to minimize memory access costs.
+    XGBoost can utilize multiple CPU cores during training, and also supports distributed computing across clusters for very large data. It has
+    out-of-core computation support, which means it can handle datasets that don't fit in memory by using disk storage \footcite[Cf.][pp. 790--791]{chen2016}.
+
+    \textbf{Handling sparsity}: Real world data often contains missing values or sparsity (e.g., one-hot encoded attributes). XGBoost introduced
+    a "sparsity-aware algorithm" for tree splitting that efficiently handles sparse input without unnecessary computations on missing features  \footcite[Cf.][pp. 788--789]{chen2016}.
+    The tree building algorithm in XGBoost can skip over missing values with a default direction for each split, and it only 
+    iterates over present feature values, making computation \textit{linear in the number of non missing entries} rather than total entries \footcite[Cf.][p. 789]{chen2016}.
+    This is particularly useful for high-dimensional data where many features may be absent.
+
+    \textbf{Approximate tree learning}: Another innovation is a \textit{weighted quantile sketch} for approximate finding of split points in the data \footcite[Cf.][p. 791]{chen2016}.
+    Instead of sorting all data values at each candidate split (which can be slow when there are many possible splits), XGBoost can use this sketch 
+    to efficiently propose candidate splits that approximatly minimize loss. 
+
+    \textbf{Regularization}: A key feature is the inclusion of regularization terms to prevent overfitting. The objective function of XGBoost 
+    is the loss plus a penalization term for model complexity\footcite[Cf.][p. 786]{chen2016}. In particular, each tree's complexity
+    is penalized through both the number of leaves and the magnitude of leaf weights. This means XGBoost doesn't just greedily minimize training loss -
+    it also considers how complex each additional tree is, and it favors simpler trees that achieve a similar reduction in loss. The regularization
+    term \enquote{regularization term helps to smooth the final learnt weights to avoid overfitting} \footcite[p. 786]{chen2016}, and encourages the 
+    model to use \enquote{simple and predictive functions} \footcite[p. 786]{chen2016}. 
+\end{subsection}
+\begin{subsection}{Booster Types: gbtree and gblinear}
+
+\end{subsection}
 \end{section}

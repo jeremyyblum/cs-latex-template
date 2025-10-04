@@ -21,9 +21,37 @@
 \usepackage{etoolbox}
 \usepackage{silence}
 \usepackage{xparse}
-\usepackage{csquotes}
-\usepackage{url}
+\usepackage[acronym,nonumberlist]{glossaries}
+\makeglossaries 
 
+
+\usepackage{csquotes}
+
+% Nach csquotes laden und erst DANN anpassen:
+\AtBeginDocument{
+  % Alle Inline-Zitate kursiv
+  \renewcommand{\mktextquote}[6]{\textit{#1#2#3#4#5#6}}
+  % Alle Blockzitate kursiv
+  \renewcommand{\mkblockquote}[4]{\itshape #1#2#3#4}
+  % enquote automatisch kursiv machen
+  \renewcommand{\enquote}[1]{\textit{\textquotedbl#1\textquotedbl}}
+}
+
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\newtcbox{\code}{
+  on line,
+  fontupper=\ttfamily\footnotesize, % kleinere Schrift
+  colback=gray!20,
+  colframe=gray!20,
+  boxrule=0pt,
+  boxsep=0.3ex,  % kleinerer Innenabstand
+  left=0.4ex,
+  right=0.4ex,
+  top=0.1ex,
+  bottom=0.1ex,
+  arc=2pt
+}
 \usepackage[
     backend=biber,
     style=authoryear,
@@ -34,6 +62,9 @@
 ]{biblatex}
 
 \addbibresource{bib/references.bib}
+
+% Glossar-Einträge laden
+\input{glossary-entries.tex}
 
 \WarningsOff[fancyhdr]
 

@@ -1,16 +1,51 @@
 \begin{section}{Introduction to Topic and Research Question}
-Here, the topic is described \autocite[p.2]{kotsiantis2007}. A focus is established and a verifiable research question is developed.
-Like all body text, this chapter should be written in justified format to improve readability.
-Of course, I have enabled spell check and grammar check and regularly verify that everything is correct.
-Here is a first test \autocite[p. 5]{kotsiantis2007}.
-This is a comparison \footcite[Cf.][p. 5]{chen2016}.
-\begin{subsection}{Subsection}
-Here, a subsection is inserted to clarify the structure of the work. It is important that the subsections are logically organized and guide the reader through the argumentation.
+\begin{subsection}{Background and Motivation}
+    Machine Learning (ML) has evolved into a central paradigm in computer science, providing methods to
+    automatically detect meaningful patterns in data and and make predictions based on these patterns.  In contrast
+    to traditional programmed algorithms, learning systems are capable of adapting to new data and change 
+    their behavior accordingly\footcite[Cf.][p. 128]{osisanwo2017}. This data-driven approach allows computers to solve problems that are too complex
+    to tackle with handcrafted methods, and it underpins real-world applications. For instance, \enquote{Smart classifiers protect our email by learning from
+    massive amounts of spam data and user feedback; advertising systems learn to match the right ads with the right context; fraud detection systems 
+    protect banks from malicious attackers; anomaly event detection systems help experimental physicists to find events that lead to new physics.} \footcite{chen2016}
+    - tasks that rely on extracting insights from large datasets rather than explicit programming.
 
-\begin{subsubsection}{Sub-subsection}
-Here, a sub-subsection is inserted to go into more detail on an aspect of the topic. It is important that the argumentation remains clear and comprehensible.
-\end{subsubsection}
-
+    Among the fundamental approaches in ML is \textit{supervised learning}, were a model is trained on labeled
+    examples (input-output pairs) to predict the correct output for new, unseen inputs. The learning aims 
+    to generalize from the training data and make accurate predictions on future data\footcite[Cf.][p. 249]{kotsiantis2007}.
+    A common use case is \textbf{classification}, especially binary classification, where the algorithm assigns
+    each instance to one of two possible categories (e.g. ``postitive'' vs. ``negative'') based on its features\footcite[Cf.][p. 249]{kotsiantis2007}.
+    Binary classification is a basic yet critical task in ML, forming the basis for many decision making systems. 
+    Given its prevalence, improving the accuracy and efficiency of binary classification models is of high importance.
 \end{subsection}
+\begin{subsection}{Problem Statement}
+    In modern machine learning practice, it is common to combine multiple models to improve predictive
+    performance. Such techniques are known as \textit{ensemble methods}, which aggregate the outputs of several base
+    learners to achieve better accuracy and robustness than a single model alone\footcite[Cf.][pp. 1--2]{natekin2013}.
+    One successful ensemble method is \textbf{boosting}, where models are added iteratively, so that each
+    new model can correct the errors of the ensemble built so far \footcite[Cf.][pp. 1--2]{natekin2013}.
+    Gradient boosting methods have demonstrated state-of-the-art results on many classification tasks by iteratively fitting new 
+    models to the residual errors of the previous models.
 
+    \textbf{XGBoost} (eXtreme Gradient Boosting) is a advanced implementation of gradient boosting that introduces
+    several optimizations to enhance both predictive accuracy and computational efficiency. In addition to the
+    standard boosting procedure, XGBoost includes innovations like explicit regularazation of model
+    complexity, parallelized tree construction, and cache-aware data structures for faster access, which makes it 
+    a highly efficient and powerful ensemble learner\footcite[Cf.][pp. 785--786]{chen2016}.
+    Within the XGBoost framework, the choice of \textit{booster} (the type of base learner) significantly influences the 
+    model's behavior and performance. The library offers two primary booster options: \textbf{gbtree}, which uses decision trees
+    capable of capturing complex, nonlinear relationships in the data. The linear booster \textbf{gblinear}, produces
+    an additive linear model (with weight regularazation) analogous to logistic or linear regression \footcite[Cf.]{xgboost2024}.
+    In other words, \code{gbtree} booster relies on treebased models, while \code{gblinear} uses linear functions as base learners.\footcite[Cf. ]{xgboost2024}.
+
+    Tree-based ensembles are generally known for their strong predictive power across diverse tasks \footcite[Cf.][p. 785]{chen2016}, whereas 
+    linear models tend to train faster and can perform well in high-dimensional feature spaces (for example, text classification with thousands of sparse features) \footcite[Cf.][p. 129]{osisanwo2017}.
+    While XGBoost's tree booster is often observed to achieve superior accuracy on complex datasets, the linear booster
+    may has advantages in terms of training speed and simplicity, especially when the data relationships are linear.
+    It remains an open question how these two booster types compare head-to-head in a sprecific domain. Therefore, This
+    study aims to comparatively evaluate \textbf{gbtree} and \textbf{gblinear} in terms of their predictive accuracy and efficiency
+    on a binary user classification task. By analyzing their performance under the same conditions, the work seeks to identify the trade-offer
+    between the nonlinear modeling capacity of tree ensembles and the potential speed or simplicity benefits of linear models. 
+    This investigation will inform practitioners about which booster is better suited for a given problem setting
+    and contribute to a deeper understanding of XGBoost's capabilities.
+\end{subsection}
 \end{section}
