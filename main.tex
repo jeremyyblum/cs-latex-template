@@ -8,6 +8,7 @@
 \usepackage{geometry}
 \usepackage{setspace}
 \usepackage{hyperref}
+\hypersetup{hidelinks} % keine farbigen Linkrahmen
 \usepackage{tocloft}
 \usepackage{tabularx}
 \usepackage{booktabs}
@@ -63,6 +64,14 @@
 
 \addbibresource{bib/references.bib}
 
+% Fussnoten im Harvard-Kurzformat nach Provadis-Vorgabe: "Weber (2020): p. 8."
+\DeclareDelimFormat[cite,footcite]{nameyeardelim}{\addspace}
+\DeclareDelimFormat[cite,footcite]{postnotedelim}{\addcolon\space}
+\renewbibmacro*{cite:labeldate+extradate}{%
+  \iffieldundef{labelyear}
+    {}
+    {\printtext[bibhyperref]{\mkbibparens{\printlabeldateextra}}}}
+
 % Glossar-Einträge laden
 \input{glossary-entries.tex}
 
@@ -71,10 +80,11 @@
 % Document margins
 \geometry{
     a4paper,
-    top=2.5cm,
-    bottom=2.5cm,
-    left=2.5cm,
-    right=2.5cm
+    top=3cm,     % Vorgabe Provadis: links und oben 3 cm
+    bottom=2cm,  % rechts und unten 2 cm
+    left=3cm,
+    right=2cm,
+    includefoot  % Seitenzahl in der Fusszeile
 }
 
 % Line spacing
@@ -100,7 +110,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\textit{\color{gray} \nouppercase{\rightmark}}}
-\fancyhead[R]{\textit{\color{gray} \thepage}}
+\fancyfoot[C]{\thepage} % Vorgabe: Seitenzahlen in der Fusszeile
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{\color{gray}\hrule height 0.4pt width \headwidth}
 
@@ -112,6 +122,7 @@
 % Empty header on title page
 \fancypagestyle{plain}{
     \fancyhf{}
+    \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0pt}
 }
 
@@ -141,6 +152,10 @@
 
 \input{chapters/predefined/titlepage.tex}
 \newpage
+
+% Sperrvermerk nur wenn zwingend noetig:
+% \input{chapters/predefined/nda.tex}
+% \newpage
 
 \pagenumbering{roman}
 
@@ -178,6 +193,8 @@
 \input{chapters/custom/chapter6.tex}
 \newpage
 
+% Seiten nach dem Textteil: grosse roemische Zahlen (Empfehlung Provadis)
+\pagenumbering{Roman}
 \input{chapters/predefined/bib.tex}
 \newpage
 
