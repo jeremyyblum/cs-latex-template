@@ -1,6 +1,6 @@
 # WAB-Template (Provadis)
 
-Leeres LaTeX-Template für Provadis-WABs. Die alte WAB (XGBoost gbtree vs. gblinear) ist im Tag `alte-wab-xgboost` gesichert.
+Leeres LaTeX-Template für Provadis-WABs. Die alte WAB (XGBoost gbtree vs. gblinear) ist im Branch `alte-wab-xgboost` gesichert.
 
 Bauen: `latexmk -pdf main.tex` (PDF landet in `build/main.pdf`). Overleaf geht auch: Compiler pdfLaTeX, Biber ist automatisch.
 
